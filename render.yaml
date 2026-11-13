@@ -1,0 +1,19 @@
+# One-click deploy on Render: New + > Blueprint > point at this repo.
+# You'll be prompted for the secret values marked sync: false.
+services:
+  - type: web
+    name: adports-agentic-ai-demos
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: DEMO_PASSWORD
+        sync: false
+      - key: ANTHROPIC_MODEL
+        value: claude-sonnet-5
